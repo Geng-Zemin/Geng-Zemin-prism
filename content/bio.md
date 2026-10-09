@@ -1,5 +1,5 @@
-I am a PhD student at the School of Science, University of Example, advised by [Prof. Advisor One](https://example.com) and [Dr. Advisor Two](https://example.com).
+I am a PhD student at Wuhan University, working in the **State Key Laboratory of Information Engineering in Surveying, Mapping and Remote Sensing**.
 
-Prior to this, I obtained a BSc degree with First Class Honours in Natural Science from the University of Example.
+My research focuses on **multimodal image matching** and **remote sensing image processing**, with an interest in robust feature representation, correspondence learning, and geospatial imagery.
 
-My current research focuses on investigating the mathematical principles of natural philosophy.
+I share research code and project resources on [GitHub](https://github.com/Geng-Zemin). I am currently developing and studying the **MIRRIFT** and **FRIM** research projects.
