@@ -1,0 +1,15 @@
+type = "card"
+title = "Projects"
+description = "Research code and resources."
+
+[[items]]
+title = "MIRRIFT"
+subtitle = "Multimodal Image Matching"
+content = "Research project on multimodal image matching. Code and project resources are available on [GitHub](https://github.com/Geng-Zemin)."
+tags = ["Multimodal Matching", "Remote Sensing"]
+
+[[items]]
+title = "FRIM"
+subtitle = "Remote Sensing Image Processing"
+content = "Research project related to remote sensing image processing and image matching. Code and project resources are available on [GitHub](https://github.com/Geng-Zemin)."
+tags = ["Remote Sensing", "Image Processing"]
