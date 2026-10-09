@@ -3,9 +3,9 @@ title = "About"
 
 [profile]
 research_interests = [
-  "Computational Physics",
-  "Mathematical Principles",
-  "Proof of Theorems"
+  "Multimodal Image Matching",
+  "Remote Sensing Image Processing",
+  "Geospatial Intelligence"
 ]
 
 [[sections]]
@@ -26,4 +26,3 @@ id = "news"
 type = "list"
 title = "News"
 source = "news.toml"
-
