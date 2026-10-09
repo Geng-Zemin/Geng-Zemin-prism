@@ -3,6 +3,7 @@
 import PublicationsList from '@/components/publications/PublicationsList';
 import TextPage from '@/components/pages/TextPage';
 import CardPage from '@/components/pages/CardPage';
+import GuestbookPage from '@/components/pages/GuestbookPage';
 import { Publication } from '@/types/publication';
 import {
   PublicationPageConfig,
@@ -14,7 +15,8 @@ import { useLocaleStore } from '@/lib/stores/localeStore';
 export type DynamicPageLocaleData =
   | { type: 'publication'; config: PublicationPageConfig; publications: Publication[] }
   | { type: 'text'; config: TextPageConfig; content: string }
-  | { type: 'card'; config: CardPageConfig };
+  | { type: 'card'; config: CardPageConfig }
+  | { type: 'guestbook'; config: { type: 'guestbook'; title: string; description?: string } };
 
 interface DynamicPageClientProps {
   dataByLocale: Record<string, DynamicPageLocaleData>;
@@ -40,6 +42,9 @@ export default function DynamicPageClient({ dataByLocale, defaultLocale }: Dynam
       )}
       {pageData.type === 'card' && (
         <CardPage config={pageData.config} />
+      )}
+      {pageData.type === 'guestbook' && (
+        <GuestbookPage title={pageData.config.title} description={pageData.config.description} />
       )}
     </div>
   );
