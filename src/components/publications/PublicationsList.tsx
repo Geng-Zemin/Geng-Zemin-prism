@@ -16,6 +16,7 @@ import { PublicationPageConfig } from '@/types/page';
 import { cn } from '@/lib/utils';
 import { useMessages } from '@/lib/i18n/useMessages';
 import FormattedBibTeXText from './FormattedBibTeXText';
+import { useLocaleStore } from '@/lib/stores/localeStore';
 
 interface PublicationsListProps {
     config: PublicationPageConfig;
@@ -25,9 +26,11 @@ interface PublicationsListProps {
 
 export default function PublicationsList({ config, publications, embedded = false }: PublicationsListProps) {
     const messages = useMessages();
+    const locale = useLocaleStore((state) => state.locale);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedYear, setSelectedYear] = useState<number | 'all'>('all');
     const [selectedType, setSelectedType] = useState<string | 'all'>('all');
+    const [selectedCategory, setSelectedCategory] = useState<string | 'all'>('all');
     const [showFilters, setShowFilters] = useState(false);
     const [expandedBibtexId, setExpandedBibtexId] = useState<string | null>(null);
     const [expandedAbstractId, setExpandedAbstractId] = useState<string | null>(null);
@@ -43,6 +46,24 @@ export default function PublicationsList({ config, publications, embedded = fals
         return uniqueTypes.sort();
     }, [publications]);
 
+    const categoryLabels: Record<string, string> = locale.startsWith('zh')
+        ? {
+            paper: '论文',
+            patent: '专利',
+            'software-copyright': '软件著作权',
+            software: '软件',
+        }
+        : {
+            paper: 'Papers',
+            patent: 'Patents',
+            'software-copyright': 'Software Copyrights',
+            software: 'Software',
+        };
+
+    const categories = Object.keys(categoryLabels).filter(category =>
+        publications.some(publication => publication.category === category)
+    );
+
     // Filter publications
     const filteredPublications = useMemo(() => {
         return publications.filter(pub => {
@@ -54,8 +75,9 @@ export default function PublicationsList({ config, publications, embedded = fals
 
             const matchesYear = selectedYear === 'all' || pub.year === selectedYear;
             const matchesType = selectedType === 'all' || pub.type === selectedType;
+            const matchesCategory = selectedCategory === 'all' || pub.category === selectedCategory;
 
-            return matchesSearch && matchesYear && matchesType;
+            return matchesSearch && matchesYear && matchesType && matchesCategory;
         });
     }, [publications, searchQuery, selectedYear, selectedType]);
 
@@ -72,6 +94,35 @@ export default function PublicationsList({ config, publications, embedded = fals
                         {config.description}
                     </p>
                 )}
+            </div>
+
+            {/* Achievement category tabs */}
+            <div className="mb-8 flex flex-wrap gap-2">
+                <button
+                    onClick={() => setSelectedCategory('all')}
+                    className={cn(
+                        "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                        selectedCategory === 'all'
+                            ? "bg-accent text-white"
+                            : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent/10 hover:text-accent"
+                    )}
+                >
+                    {locale.startsWith('zh') ? '全部成果' : 'All Achievements'}
+                </button>
+                {categories.map(category => (
+                    <button
+                        key={category}
+                        onClick={() => setSelectedCategory(category)}
+                        className={cn(
+                            "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                            selectedCategory === category
+                                ? "bg-accent text-white"
+                                : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent/10 hover:text-accent"
+                        )}
+                    >
+                        {categoryLabels[category]}
+                    </button>
+                ))}
             </div>
 
             {/* Search and Filter Controls */}
@@ -214,9 +265,16 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     </div>
                                 )}
                                 <div className="flex-grow">
-                                    <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary mb-2 leading-tight`}>
-                                        <FormattedBibTeXText nodes={pub.titleNodes} fallback={pub.title} />
-                                    </h3>
+                                    <div className="flex flex-wrap items-start gap-2 mb-2">
+                                        <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary leading-tight`}>
+                                            <FormattedBibTeXText nodes={pub.titleNodes} fallback={pub.title} />
+                                        </h3>
+                                        {pub.category && (
+                                            <span className="shrink-0 rounded-full bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent">
+                                                {categoryLabels[pub.category] || pub.category}
+                                            </span>
+                                        )}
+                                    </div>
                                     <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-400 mb-2`}>
                                         {pub.authors.map((author, idx) => (
                                             <span key={idx}>
@@ -241,6 +299,20 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     )}
 
                                     <div className="flex flex-wrap gap-2 mt-auto">
+                                        {pub.url && (
+                                            <a
+                                                href={pub.url}
+                                                target={pub.url.startsWith('http') ? "_blank" : undefined}
+                                                rel={pub.url.startsWith('http') ? "noopener noreferrer" : undefined}
+                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
+                                            >
+                                                {pub.category === 'patent'
+                                                    ? (locale.startsWith('zh') ? '专利链接' : 'Patent')
+                                                    : pub.category === 'software'
+                                                        ? (locale.startsWith('zh') ? '软件详情' : 'Details')
+                                                        : (locale.startsWith('zh') ? '论文链接' : 'Paper')}
+                                            </a>
+                                        )}
                                         {pub.doi && (
                                             <a
                                                 href={`https://doi.org/${pub.doi}`}
@@ -259,6 +331,16 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
                                             >
                                                 {messages.publications.code}
+                                            </a>
+                                        )}
+                                        {pub.dataset && (
+                                            <a
+                                                href={pub.dataset}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
+                                            >
+                                                {locale.startsWith('zh') ? '数据集' : 'Dataset'}
                                             </a>
                                         )}
                                         {pub.abstract && (
