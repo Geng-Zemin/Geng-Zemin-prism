@@ -48,7 +48,7 @@ target = "about"
 href = "/"
 
 [[navigation]]
-title = "Publications"
+title = "Achievements"
 type = "page"
 target = "publications"
 href = "/publications"
