@@ -1,4 +1,4 @@
-type = "text"
+type = "publication"
 title = "成果"
 description = "论文、专利、软件著作权与软件成果。"
-source = "achievements.md"
+source = "publications.bib"
