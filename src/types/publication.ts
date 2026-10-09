@@ -53,6 +53,8 @@ export interface Publication {
   summary?: string;
   researchArea: ResearchArea;
   description?: string;
+  category?: 'paper' | 'patent' | 'software-copyright' | 'software';
+  dataset?: string;
 }
 
 export type PublicationType =
