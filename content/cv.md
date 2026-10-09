@@ -2,7 +2,7 @@
 
 ## Education
 
-- **Wuhan University · School of Mining Engineering**  
+- **Taiyuan University of Technology · School of Mining Engineering**  
   2017 – 2021
 
 - **Wuhan University · School of Remote Sensing and Information Engineering**  
