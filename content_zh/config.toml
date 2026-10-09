@@ -29,12 +29,6 @@ target = "publications"
 href = "/publications"
 
 [[navigation]]
-title = "项目"
-type = "page"
-target = "projects"
-href = "/projects"
-
-[[navigation]]
 title = "简历"
 type = "page"
 target = "cv"
