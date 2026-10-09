@@ -29,12 +29,6 @@ target = "publications"
 href = "/publications"
 
 [[navigation]]
-title = "留言板"
-type = "page"
-target = "guestbook"
-href = "/guestbook"
-
-[[navigation]]
 title = "简历"
 type = "page"
 target = "cv"
