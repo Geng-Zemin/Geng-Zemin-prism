@@ -47,6 +47,13 @@ function loadDynamicPageData(slug: string, locale?: string): DynamicPageLocaleDa
     };
   }
 
+  if (pageConfig.type === 'guestbook') {
+    return {
+      type: 'guestbook',
+      config: pageConfig,
+    };
+  }
+
   return null;
 }
 
