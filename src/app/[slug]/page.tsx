@@ -50,7 +50,7 @@ function loadDynamicPageData(slug: string, locale?: string): DynamicPageLocaleDa
   if (pageConfig.type === 'guestbook') {
     return {
       type: 'guestbook',
-      config: pageConfig,
+      config: pageConfig as { type: 'guestbook'; title: string; description?: string },
     };
   }
 
