@@ -23,7 +23,7 @@ target = "about"
 href = "/"
 
 [[navigation]]
-title = "论文"
+title = "成果"
 type = "page"
 target = "publications"
 href = "/publications"
