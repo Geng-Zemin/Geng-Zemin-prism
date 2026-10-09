@@ -12,7 +12,7 @@ institution = "Wuhan University · State Key Laboratory of Information Engineeri
 avatar = "/logo.png"
 
 [social]
-email = ""
+email = "gengzemin@whu.edu.cn"
 location = "Wuhan, China"
 location_url = "https://www.whu.edu.cn/"
 location_details = [
@@ -20,7 +20,7 @@ location_details = [
   "State Key Laboratory of Information Engineering in Surveying, Mapping and Remote Sensing"
 ]
 google_scholar = ""
-orcid = ""
+orcid = "https://orcid.org/0009-0004-0090-7048"
 github = "https://github.com/Geng-Zemin"
 linkedin = ""
 
