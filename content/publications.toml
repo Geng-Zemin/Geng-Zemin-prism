@@ -1,4 +1,4 @@
-type = "text"
+type = "publication"
 title = "Achievements"
 description = "Publications, patents, software copyrights, and software."
-source = "achievements.md"
+source = "publications.bib"
