@@ -7,7 +7,8 @@ export default function GuestbookPage({ title, description }: { title: string; d
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (!containerRef.current || containerRef.current.querySelector('script')) return;
+        const container = containerRef.current;
+        if (!container || container.querySelector('script')) return;
 
         const script = document.createElement('script');
         script.src = 'https://utteranc.es/client.js';
@@ -17,10 +18,10 @@ export default function GuestbookPage({ title, description }: { title: string; d
         script.setAttribute('issue-term', 'pathname');
         script.setAttribute('label', 'guestbook');
         script.setAttribute('theme', 'github-light');
-        containerRef.current.appendChild(script);
+        container.appendChild(script);
 
         return () => {
-            if (containerRef.current) containerRef.current.innerHTML = '';
+            container.innerHTML = '';
         };
     }, []);
 
