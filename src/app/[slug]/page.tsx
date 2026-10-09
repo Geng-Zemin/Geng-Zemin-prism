@@ -59,11 +59,13 @@ function loadDynamicPageData(slug: string, locale?: string): DynamicPageLocaleDa
 
 export function generateStaticParams() {
   const config = getConfig();
-  return config.navigation
+  const navigationSlugs = config.navigation
     .filter((nav) => nav.type === 'page' && nav.target !== 'about')
-    .map((nav) => ({
-      slug: nav.target,
-    }));
+    .map((nav) => nav.target);
+  const extraSlugs = ['software'];
+  return Array.from(new Set([...navigationSlugs, ...extraSlugs])).map((slug) => ({
+    slug,
+  }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
