@@ -1,0 +1,3 @@
+type = "guestbook"
+title = "Guestbook"
+description = "Leave a message, share an idea, or say hello. Messages are hosted through GitHub Discussions-style issue comments."
