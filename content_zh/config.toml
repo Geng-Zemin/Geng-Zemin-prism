@@ -33,3 +33,9 @@ title = "简历"
 type = "page"
 target = "cv"
 href = "/cv"
+
+[[navigation]]
+title = "留言板"
+type = "page"
+target = "guestbook"
+href = "/guestbook"
